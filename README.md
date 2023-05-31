@@ -19,6 +19,7 @@ Optional:
 
 1. Configure `AddDbContext` in `Server/Program.cs` to use SQLite, Postgresql, SQL Server, etc
 1. Add [Authentication](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-7.0) and replace setting LastUpdateBy to use `context.User.Identity.Name`
+1. Update `appsettings.json` with [Serilog config](https://github.com/serilog/serilog-settings-configuration) (or update fluently in `Program.cs` if you want it for all environments)
 
 ## Domain & GraphQL
 
