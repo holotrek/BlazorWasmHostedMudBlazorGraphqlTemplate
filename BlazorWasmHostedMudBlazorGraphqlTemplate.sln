@@ -10,6 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70C97F06-4C10-4BAD-85CA-996759F699B4}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmHostedMudBlazorGraphqlTemplate.Domain", "Domain\BlazorWasmHostedMudBlazorGraphqlTemplate.Domain.csproj", "{AC1C779E-54D1-4574-9AA5-C264FC355829}"

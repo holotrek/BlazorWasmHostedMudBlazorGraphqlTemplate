@@ -1,0 +1,100 @@
+﻿@page "/order/{id?}"
+@inject ISampleClient Client;
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigator;
+
+<PageTitle>Edit Order</PageTitle>
+
+@{
+    Guid.TryParse(Id, out var id);
+    <UseGetOrder Id="@id" Context="result">
+        <ChildContent>
+            @{
+                BindInitialData(result);
+                <MudText Typo="Typo.h3" GutterBottom="true">Order: @(_orderInput?.Name ?? "[New]")</MudText>
+                @if (_orderInput != null)
+                {
+                    <EditForm Model="@_orderInput" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+                        <FluentValidationValidator />
+
+                        <MudGrid>
+                            <MudItem xs="12" sm="7">
+                                <MudCard>
+                                    <MudCardContent>
+                                        <MudTextField Label="Name" Required="true" @bind-Value="_orderInput.Name" For="@(() => _orderInput.Name)" />
+                                        <MudNumericField Label="Price" Required="true" @bind-Value="_orderInput.Price" For="@(() => _orderInput.Price)" Format="N2" />
+                                        <MudTextField Label="User Name" Required="true" @bind-Value="_orderInput.LastUpdateBy" For="@(() => _orderInput.LastUpdateBy)" />
+                                    </MudCardContent>
+                                    <MudCardActions>
+                                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">@(_order == default ? "Add" : "Update")</MudButton>
+                                    </MudCardActions>
+                                </MudCard>
+                            </MudItem>
+                            @if (_showValidationErrors)
+                            {
+                                <MudItem xs="12" sm="5">
+                                    <MudPaper Class="pa-4 mud-height-full">
+                                        <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                                        <MudText Color="@Color.Error">
+                                            <ValidationSummary />
+                                        </MudText>
+                                    </MudPaper>
+                                </MudItem>
+                            }
+                        </MudGrid>
+                    </EditForm>
+                }
+            }
+        </ChildContent>
+        <ErrorContent>
+            <MudAlert Severity="Severity.Error">Order was not able to be retrieved. Try reloading the page (F5).</MudAlert>
+        </ErrorContent>
+        <LoadingContent>
+            Loading ...
+        </LoadingContent>
+    </UseGetOrder>
+}
+
+@code {
+    private IOrderInfo? _order;
+    private OrderInput? _orderInput;
+    bool _showValidationErrors = false;
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    private void BindInitialData(IGetOrderResult? result)
+    {
+        if (_orderInput == null)
+        {
+            _order = result?.Order;
+            if (_order == null)
+            {
+                _orderInput = new OrderInput();
+            }
+            else
+            {
+                _orderInput = new OrderInput
+                    {
+                        Id = _order.Id,
+                        Name = _order.Name,
+                        Price = _order.Price
+                    };
+            }
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        _showValidationErrors = false;
+        await Client.UpsertOrder.ExecuteAsync(_orderInput!);
+        Snackbar.Add("Order saved succesfully!", Severity.Success);
+        await Task.Delay(1000);
+        Navigator.NavigateTo("/orders");
+    }
+
+    private void OnInvalidSubmit()
+    {
+        _showValidationErrors = true;
+    }
+}

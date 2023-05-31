@@ -16,7 +16,9 @@ builder.Services.AddDbContext<SampleContext>(opt => opt
     .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
     .UseInMemoryDatabase("Sample")
     .UseProjectables());
-builder.Services.AddGraphQLServer().AddQueryType<Query>();
+builder.Services.AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

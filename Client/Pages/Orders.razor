@@ -1,0 +1,36 @@
+﻿@page "/orders"
+
+<PageTitle>Orders</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Orders</MudText>
+<MudText Class="mb-8">This component demonstrates fetching data from the server using GraphQL.</MudText>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/order"><MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> Add Order</MudButton>
+<UseGetOrders Context="result">
+    <ChildContent>
+        <MudTable Items="result.Orders!" Hover="true" SortLabel="Sort By" Elevation="0">
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<IOrderInfo, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<IOrderInfo, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<IOrderInfo, object>(x=>x.Price)">Price</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Title="Edit Order" Href="@($"/order/{context.Id}")"></MudIconButton>
+                </MudTd>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Price">@context.Price</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{10, 50, 100}" />
+            </PagerContent>
+        </MudTable>
+    </ChildContent>
+    <ErrorContent>
+        <MudAlert Severity="Severity.Error">Orders were not able to be retrieved. Try reloading the page (F5).</MudAlert>
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetOrders>

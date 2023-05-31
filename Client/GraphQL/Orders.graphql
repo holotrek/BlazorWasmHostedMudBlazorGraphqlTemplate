@@ -1,0 +1,23 @@
+query GetOrders {
+  orders {
+    ... OrderInfo
+  }
+}
+
+query GetOrder($id: UUID!) {
+  order(id: $id) {
+    ... OrderInfo
+  }
+}
+
+mutation UpsertOrder($orderInput: OrderInput!) {
+  upsertOrder(orderInput: $orderInput) {
+    ...OrderInfo
+  }
+}
+
+fragment OrderInfo on Order {
+    id
+    name
+    price
+}

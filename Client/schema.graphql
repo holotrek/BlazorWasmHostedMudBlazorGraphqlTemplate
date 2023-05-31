@@ -1,5 +1,6 @@
 ﻿schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
@@ -7,13 +8,29 @@ type Query {
   order(id: UUID!): Order
 }
 
-type Order {
-  id: UUID!
-  name: String!
-  price: Decimal!
+type Mutation {
+  upsertOrder(orderInput: OrderInput!): Order!
 }
 
 scalar UUID
 
+type Order {
+  name: String!
+  price: Decimal!
+  id: UUID!
+  lastUpdateBy: String!
+  lastUpdateOn: DateTime!
+}
+
+input OrderInput {
+  id: UUID!
+  name: String!
+  price: Decimal!
+  lastUpdateBy: String!
+}
+
 "The built-in `Decimal` scalar type."
 scalar Decimal
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime

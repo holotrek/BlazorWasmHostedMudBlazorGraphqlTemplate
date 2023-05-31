@@ -3,15 +3,13 @@ public abstract class BaseEntity
 {
     protected BaseEntity(
         Guid id, 
-        string lastUpdateBy, 
-        DateTimeOffset lastUpdateOn)
+        string lastUpdateBy)
     {
         Id = id;
         LastUpdateBy = lastUpdateBy;
-        LastUpdateOn = lastUpdateOn;
     }
 
     public Guid Id { get; private set; }
-    public string LastUpdateBy { get; private set; }
-    public DateTimeOffset LastUpdateOn { get; private set; }
+    public string LastUpdateBy { get; protected set; }
+    public DateTimeOffset LastUpdateOn { get; protected set; } = DateTimeOffset.UtcNow;
 }

@@ -1,7 +1,0 @@
-query GetOrders {
-  orders {
-    id
-    name
-    price
-  }
-}
