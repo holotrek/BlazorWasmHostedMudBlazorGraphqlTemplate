@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "schema": [
+        "Client/schema.graphql"
+      ],
+      "documents": [
+        "Client/**/*.graphql"
+      ]
+    },
+    {
+      "schema": [
+        "Client/bin/Debug/net7.0/schema.graphql"
+      ],
+      "documents": [
+        "Client/bin/Debug/net7.0/**/*.graphql"
+      ]
+    },
+    {
+      "schema": [
+        "Server/bin/Debug/net7.0/schema.graphql"
+      ],
+      "documents": [
+        "Server/bin/Debug/net7.0/**/*.graphql"
+      ]
+    }
+  ]
+}
