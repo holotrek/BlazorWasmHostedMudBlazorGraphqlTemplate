@@ -11,7 +11,7 @@ public class Mutation
         [UseFluentValidation] OrderInput orderInput)
     {
         var existing = await context.Orders.SingleOrDefaultAsync(o => o.Id == orderInput.Id);
-        if (existing == null)
+        if (existing == default)
         {
             var existsByName = await context.Orders.AnyAsync(o => o.Name.ToLower() == orderInput.Name.ToLower());
             if (existsByName)
