@@ -1,8 +1,8 @@
 using AppAny.HotChocolate.FluentValidation;
 using BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
