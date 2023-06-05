@@ -1,8 +1,10 @@
-﻿namespace BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
+﻿using FluentValidation;
+
+namespace BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
 public class Order : BaseEntity
 {
-    public Order(Guid id, string name, decimal price, string lastUpdateBy)
-        : base(id, lastUpdateBy)
+    internal Order(string name, decimal price, string lastUpdateBy)
+        : base(lastUpdateBy)
     {
         Name = name;
         Price = price;
@@ -10,7 +12,7 @@ public class Order : BaseEntity
 
     public static Order Create(OrderInput input)
     {
-        return new Order(Guid.NewGuid(), input.Name, input.Price, input.LastUpdateBy);
+        return new Order(input.Name, input.Price, input.LastUpdateBy);
     }
 
     public string Name { get; private set; }
@@ -39,4 +41,14 @@ public class OrderInput
     public string Name { get; }
     public decimal Price { get; }
     public string LastUpdateBy { get; }
+}
+
+public class OrderInputValidator : AbstractValidator<OrderInput>
+{
+    public OrderInputValidator()
+    {
+        RuleFor(input => input.Name).NotNull().NotEmpty();
+        RuleFor(input => input.Price).NotNull().NotEmpty().ExclusiveBetween(0m, 1e+6m);
+        RuleFor(o => o.LastUpdateBy).NotNull().NotEmpty().WithName("User Name");
+    }
 }

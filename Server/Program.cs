@@ -1,6 +1,8 @@
+using AppAny.HotChocolate.FluentValidation;
 using BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +14,16 @@ var logger = new LoggerConfiguration()
 builder.Logging.AddSerilog(logger);
 
 // Add services to the container.
+builder.Services.AddScoped<IValidator<OrderInput>, OrderInputValidator>();
 builder.Services.AddDbContext<SampleContext>(opt => opt
     .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
     .UseInMemoryDatabase("Sample")
     .UseProjectables());
-builder.Services.AddGraphQLServer()
+builder.Services
+    .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddMutationType<Mutation>();
+    .AddMutationType<Mutation>()
+    .AddFluentValidation();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

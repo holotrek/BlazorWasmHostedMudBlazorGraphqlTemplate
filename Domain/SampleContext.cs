@@ -27,9 +27,9 @@ public class SampleContext : DbContext
         {
             modelBuilder.Entity<Order>().HasData(new[]
             {
-                new Order(Guid.NewGuid(), "Soap", 3.99m, "Seed"),
-                new Order(Guid.NewGuid(), "Tissues", 10.43m, "Seed"),
-                new Order(Guid.NewGuid(), "Toothpaste", 8.67m, "Seed"),
+                new Order("Soap", 3.99m, "Seed"),
+                new Order("Tissues", 10.43m, "Seed"),
+                new Order("Toothpaste", 8.67m, "Seed"),
             });
         }
     }

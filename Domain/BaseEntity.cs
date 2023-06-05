@@ -1,15 +1,12 @@
 ﻿namespace BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
 public abstract class BaseEntity
 {
-    protected BaseEntity(
-        Guid id, 
-        string lastUpdateBy)
+    protected BaseEntity(string lastUpdateBy)
     {
-        Id = id;
         LastUpdateBy = lastUpdateBy;
     }
 
-    public Guid Id { get; private set; }
+    public Guid Id { get; protected set; } = Guid.NewGuid();
     public string LastUpdateBy { get; protected set; }
     public DateTimeOffset LastUpdateOn { get; protected set; } = DateTimeOffset.UtcNow;
 }

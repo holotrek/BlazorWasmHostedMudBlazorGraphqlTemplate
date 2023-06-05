@@ -1,10 +1,13 @@
-﻿using HotChocolate;
+﻿using AppAny.HotChocolate.FluentValidation;
+using HotChocolate;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
 public class Mutation
 {
-    public async Task<Order> UpsertOrder([Service] SampleContext context, OrderInput orderInput)
+    public async Task<Order> UpsertOrder(
+        [Service] SampleContext context,
+        [UseFluentValidation] OrderInput orderInput)
     {
         var existing = await context.Orders.SingleOrDefaultAsync(o => o.Id == orderInput.Id);
         if (existing == null)
