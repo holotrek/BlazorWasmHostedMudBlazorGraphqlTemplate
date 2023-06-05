@@ -7,8 +7,8 @@ public class OrderInputValidator : AbstractValidator<OrderInput>
 {
     public OrderInputValidator()
     {
-        RuleFor(o => o.Name).NotNull().NotEmpty();
-        RuleFor(o => o.Price).NotNull().NotEmpty().ExclusiveBetween(0m, 1e+6m);
-        RuleFor(o => o.LastUpdateBy).NotNull().NotEmpty().WithName("User Name");
+        RuleFor(input => input.Name).NotNull().NotEmpty();
+        RuleFor(input => input.Price).NotNull().NotEmpty().ExclusiveBetween(0m, 1e+6m);
+        RuleFor(input => input.LastUpdateBy).NotNull().NotEmpty().WithName("User Name");
     }
 }

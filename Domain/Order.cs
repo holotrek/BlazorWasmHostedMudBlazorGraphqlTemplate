@@ -49,6 +49,6 @@ public class OrderInputValidator : AbstractValidator<OrderInput>
     {
         RuleFor(input => input.Name).NotNull().NotEmpty();
         RuleFor(input => input.Price).NotNull().NotEmpty().ExclusiveBetween(0m, 1e+6m);
-        RuleFor(o => o.LastUpdateBy).NotNull().NotEmpty().WithName("User Name");
+        RuleFor(input => input.LastUpdateBy).NotNull().NotEmpty().WithName("User Name");
     }
 }
