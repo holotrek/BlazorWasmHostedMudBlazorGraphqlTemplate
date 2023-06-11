@@ -1,11 +1,13 @@
 ﻿using AppAny.HotChocolate.FluentValidation;
 using HotChocolate;
+using HotChocolate.Authorization;
 using HotChocolate.Execution;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorWasmHostedMudBlazorGraphqlTemplate.Domain;
 public class Mutation
 {
+    [Authorize]
     public async Task<Order> UpsertOrder(
         [Service] SampleContext context,
         [UseFluentValidation] OrderInput orderInput)

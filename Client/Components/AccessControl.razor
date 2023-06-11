@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorized>
+        <MudText Class="mr-6" Color="Color.Inherit">Hello, @(context.User.Identity?.Name)!</MudText>
+        <MudLink Href="#" OnClick="Logout" Color="Color.Inherit">Log out</MudLink>
+    </Authorized>
+    <NotAuthorized>
+        <MudLink Href="#" OnClick="Login" Color="Color.Inherit">Log in</MudLink>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private void Login()
+    {
+        Navigation.NavigateToLogin("authentication/login");
+    }
+
+    private void Logout()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+}
