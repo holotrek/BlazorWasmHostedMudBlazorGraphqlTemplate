@@ -28,7 +28,7 @@ A template for an ASP.NET Hosted Blazor WASM project, including:
     1. Click Create API
     1. Enter a name and any URL (does not need to be a real URL). Click Create.
     1. Edit the Client [appsettings.json](./Client/wwwroot/appsettings.json) and replace the placeholders with the copied values.
-    1. Edit the Server [appsettings.Development.json](./Server/appsettings.json) and replace the placeholders.
+    1. Edit the Server [appsettings.Development.json](./Server/appsettings.Development.json) and replace the placeholders.
     1. Authority is the Domain value with `https://` prepended. Audience is the URL created in the previous step.
 1. Open in VS2022 or VSCode and run
 
